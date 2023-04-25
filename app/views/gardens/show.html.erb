@@ -1,0 +1,9 @@
+<h1>Gardens#Show</h1>
+<br>
+<h2><%= @garden.name %>
+<h2>Plants that take less than 100 days to harvest</h2>
+<ul>
+  <% @plants.each do |plant| %>
+    <li><%= plant.name %>
+  <% end %>
+</ul>
