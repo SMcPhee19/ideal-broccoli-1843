@@ -14,6 +14,7 @@ RSpec.describe 'Plots Index Page' do
     @plant2 = Plant.create!(name: "Cucumber", description: "Hard to grow", days_to_harvest: 100)
     @plant3 = Plant.create!(name: "Carrot", description: "Easy to grow", days_to_harvest: 120)
     @plant4 = Plant.create!(name: "Pepper", description: "Hard to grow", days_to_harvest: 150)
+    
 
     PlotPlant.create!(plot: @plot1, plant: @plant1)
     PlotPlant.create!(plot: @plot1, plant: @plant2)
@@ -74,7 +75,6 @@ RSpec.describe 'Plots Index Page' do
       expect(page).to have_content(@plant3.name)
       expect(page).to have_content(@plant4.name)
     end
-
     click_link("Remove #{@plot2.id} #{@plant1.name}")
     expect(current_path).to eq(plots_path)
 
