@@ -42,26 +42,11 @@ RSpec.describe 'Plots Index Page' do
 
   it 'when I visit the plots index page, I see under each plot number, names of all that plot plants' do
     visit plots_path
-    within "#plots-#{@plot1}" do
-      expect(page).to have_content(@plant1.name)
-      expect(page).to have_content(@plant2.name)
-      expect(page).to have_content(@plant3.name)
-      expect(page).to have_content(@plant4.name)
-    end
-
-    within "#plots-#{@plot2}" do
-      expect(page).to have_content(@plant1.name)
-      expect(page).to have_content(@plant2.name)
-      expect(page).to have_content(@plant3.name)
-    end
-
-    within "#plots-#{@plot3}" do
-      expect(page).to have_content(@plant1.name)
-      expect(page).to have_content(@plant2.name)
-    end
-
-    within "#plots-#{@plot4}" do
-      expect(page).to have_content(@plant1.name)
+    within "#plots" do
+      expect(page).to have_content("Plants for #{@plot1.id}: Tomato Cucumber Carrot Pepper")
+      expect(page).to have_content("Plants for #{@plot2.id}: Tomato Cucumber Carrot")
+      expect(page).to have_content("Plants for #{@plot3.id}: Tomato Cucumber")
+      expect(page).to have_content("Plants for #{@plot4.id}: Tomato")
     end
   end
 end

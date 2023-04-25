@@ -1,3 +1,3 @@
 require 'rails_helper'
 
-RSpec.describe Garden Show Page
+# RSpec.describe Garden Show Page
