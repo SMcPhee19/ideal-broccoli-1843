@@ -43,10 +43,65 @@ RSpec.describe 'Plots Index Page' do
   it 'when I visit the plots index page, I see under each plot number, names of all that plot plants' do
     visit plots_path
     within "#plots" do
-      expect(page).to have_content("Plants for #{@plot1.id}: Tomato Cucumber Carrot Pepper")
-      expect(page).to have_content("Plants for #{@plot2.id}: Tomato Cucumber Carrot")
-      expect(page).to have_content("Plants for #{@plot3.id}: Tomato Cucumber")
-      expect(page).to have_content("Plants for #{@plot4.id}: Tomato")
+      expect(page).to have_content("Plants for #{@plot1.id}: Tomato Remove #{@plot1.id} Tomato Cucumber Remove #{@plot1.id} Cucumber Carrot Remove #{@plot1.id} Carrot Pepper Remove #{@plot1.id} Pepper")
+      expect(page).to have_content("Plants for #{@plot2.id}: Tomato Remove #{@plot2.id} Tomato Cucumber Remove #{@plot2.id} Cucumber Carrot Remove #{@plot2.id} Carrot")
+      expect(page).to have_content("Plants for #{@plot3.id}: Tomato Remove #{@plot3.id} Tomato Cucumber Remove #{@plot3.id} Cucumber")
+      expect(page).to have_content("Plants for #{@plot4.id}: Tomato Remove #{@plot4.id} Tomato")
+    end
+  end
+
+  it 'when in the plots index page, next to each plant name, I see a link to remove that plant from that plot' do
+    visit plots_path
+    within "#plots" do
+      expect(page).to have_link("Remove #{@plot1.id} #{@plant1.name}")
+      expect(page).to have_link("Remove #{@plot1.id} #{@plant2.name}")
+      expect(page).to have_link("Remove #{@plot1.id} #{@plant3.name}")
+      expect(page).to have_link("Remove #{@plot1.id} #{@plant4.name}")
+      expect(page).to have_link("Remove #{@plot2.id} #{@plant1.name}")
+      expect(page).to have_link("Remove #{@plot2.id} #{@plant2.name}")
+      expect(page).to have_link("Remove #{@plot2.id} #{@plant3.name}")
+      expect(page).to have_link("Remove #{@plot3.id} #{@plant1.name}")
+      expect(page).to have_link("Remove #{@plot3.id} #{@plant2.name}")
+      expect(page).to have_link("Remove #{@plot4.id} #{@plant1.name}")
+    end
+  end
+
+  it 'when I click on the remove plant link, I am returned to the plots index page, and I no longer see that plant listed under that plot' do
+    visit plots_path
+    within "#plots" do
+      expect(page).to have_content(@plant1.name)
+      expect(page).to have_content(@plant2.name)
+      expect(page).to have_content(@plant3.name)
+      expect(page).to have_content(@plant4.name)
+    end
+
+    click_link("Remove #{@plot2.id} #{@plant1.name}")
+    expect(current_path).to eq(plots_path)
+
+    within "#plots" do
+      expect(page).to_not have_content("Plants for #{@plot2.id}: Tomato Remove #{@plot2.id} Tomato Cucumber Remove #{@plot2.id} Cucumber Carrot Remove #{@plot2.id} Carrot")
+    end
+  end
+
+  it 'when I visit the plots index page, and I have deleted a plant, I still see it in other plots' do
+    visit plots_path
+    within "#plots" do
+      expect(page).to have_content(@plant1.name)
+      expect(page).to have_content(@plant2.name)
+      expect(page).to have_content(@plant3.name)
+      expect(page).to have_content(@plant4.name)
+    end
+
+    click_link("Remove #{@plot2.id} #{@plant1.name}")
+    expect(current_path).to eq(plots_path)
+
+    within "#plots" do
+      # I should no longer see tomato in plot 2
+      expect(page).to_not have_content("Plants for #{@plot2.id}: Tomato Remove #{@plot2.id} Tomato Cucumber Remove #{@plot2.id} Cucumber Carrot Remove #{@plot2.id} Carrot")
+      # I should still see tomato in plots 1, 3, and 4
+      expect(page).to have_content("Plants for #{@plot1.id}: Tomato Remove #{@plot1.id} Tomato Cucumber Remove #{@plot1.id} Cucumber Carrot Remove #{@plot1.id} Carrot Pepper Remove #{@plot1.id} Pepper")
+      expect(page).to have_content("Plants for #{@plot3.id}: Tomato Remove #{@plot3.id} Tomato Cucumber Remove #{@plot3.id} Cucumber")
+      expect(page).to have_content("Plants for #{@plot4.id}: Tomato Remove #{@plot4.id} Tomato")
     end
   end
 end

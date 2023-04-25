@@ -7,7 +7,7 @@
         <p>
           Plants for <%= "#{plot.id}" %>: 
           <% plot.all_plants.each do |plant| %>
-            <%= plant.name %>
+            <%= plant.name %> <%= link_to "Remove #{plot.id} #{plant.name}", plot_plant_path(plot_id: plot.id, id: plant.id), method: :delete, params: {plot_id: plot.id, plant_id: plant.id} %> 
           <% end %>
         </p>
     <%end%>

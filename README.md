@@ -74,13 +74,13 @@ As a visitor
 User Story 2, Remove a Plant from a Plot
 
 As a visitor
-[] When I visit the plots index page
-[] Next to each plant's name
-[] I see a link to remove that plant from that plot
-[] When I click on that link
-[] I'm returned to the plots index page
-[] And I no longer see that plant listed under that plot,
-[] And I still see that plant's name under other plots that is was associated with.
+[X] When I visit the plots index page
+[X] Next to each plant's name
+[X] I see a link to remove that plant from that plot
+[X] When I click on that link
+[X] I'm returned to the plots index page
+[X] And I no longer see that plant listed under that plot,
+[X] And I still see that plant's name under other plots that is was associated with.
 
 Note: you do not need to test for any sad paths or implement any flash messages. 
 ```
