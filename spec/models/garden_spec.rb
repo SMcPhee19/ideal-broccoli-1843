@@ -39,7 +39,7 @@ RSpec.describe Garden do
     it '#less_than_100_days' do
       expect(@garden1 .less_than_100_days.order(:id)).to eq([@plant1, @plant2])
       # I don't know if the .order(:id) is kosher here or not,
-      # but the order of the plants in the array kept changing if I didn't add it here"
+      # but the order of the plants in the array kept changing if I didn't add it here
     end
   end
 end
